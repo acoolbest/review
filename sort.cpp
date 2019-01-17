@@ -11,6 +11,9 @@
 
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <math.h>
+
 
 using namespace std;
 void print_link(int *a, const int len)
@@ -18,6 +21,74 @@ void print_link(int *a, const int len)
 	for (int i=0;i<len;i++)
 		cout << a[i] << " ";
 	cout << endl;
+}
+//寻找数组中最大数的位数作为基数排序循环次数
+int getnum(int a[], const int len)
+{
+	int num = 1;
+	int r = 10;
+	for(int i=1;i<len;i++)
+	{
+		while(a[i]/r > 0)
+		{
+			num++;
+			r*=10;
+		}
+	}
+	return num;
+}
+
+void radix_sort(int *a, const int len)
+{
+	int num = getnum(a,len);//获得位数
+	vector<vector<int> > radix(10);
+	for(int k=0;k<num;k++)
+	{
+		for(int i=0;i>len;i++)//存放元素
+		{
+			int t = int(a[i]/pow(10,k))%10;
+			radix[t].push_back(a[i]);
+		}
+		vector<vector<int> >::iterator p;
+		vector<int>::iterator q;
+		int i=0;
+		for(p=radix.begin();p!=radix.end();p++)
+		{
+			for(q=(*p).begin();q!=(*p).end();q++)
+			{
+				a[i++] = *q;
+			}
+		}
+		for(int i=0;i<10;i++)
+		{
+			if(!radix[i].empty())
+				radix[i].clear();
+		}
+	}
+}
+
+void count_sort(int *a, const int len)
+{
+	int low = a[0], high = a[0];
+	for(int i=1;i<len;i++)
+	{
+		low = a[i] < low ? a[i] : low;
+		high = a[i] > high ? a[i] : high; 
+	}
+	int range = high - low + 1;
+	int *count = new int[range]();
+	for(int i=0;i<len;i++)
+	{
+		count[a[i]-low]++;
+	}
+	int j = 0;
+	for(int i=0;i<range;i++)
+	{
+		while(count[i]--)
+		{
+			a[j++] = i+low;
+		}
+	}
 }
 
 //构造最大堆
@@ -257,8 +328,9 @@ int main(int argc, char *argv[])
 //	shell_sort(a, len);
 //	merge_sort(a, len);
 //	quick_sort(a, 0, len-1);
-	heap_sort(a, len);
-//	heapSort(a, len);
+//	heap_sort(a, len);
+//	count_sort(a, len);
+	radix_sort(a, len);
 	for (int i=0;i<len;i++)
 		cout << a[i] << " ";
 	cout << endl;
