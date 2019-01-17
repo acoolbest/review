@@ -343,5 +343,14 @@ https://blog.csdn.net/qq_32446743/article/details/82743863
 https://blog.csdn.net/u010853261/article/details/82253948
 https://blog.csdn.net/wan_hust/article/details/25835025
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+指针和引用的区别
+类型转换的区别
+赋值构造函数和拷贝构造函数的区别
+虚函数表、虚函数、纯虚函数
+new delete malloc free
+c++调用C语言：extern "C"
+smart_ptr unique_ptr 区别和适用场景
+各种STL容器的原理，时间复杂度，适用场景
+构造函数调用virtual函数会怎样？
+构造析构顺序
 排序，树的遍历，string的深浅复制，模板类，单例，工厂，图的遍历
